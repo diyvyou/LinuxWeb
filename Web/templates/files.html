@@ -1,0 +1,10 @@
+  <ul>
+    {% for file in files %}
+      <li>
+        <a href="/download/{{ file }}">{{ file }}</a>
+        <form action="/delete/{{ file }}" method="post" style="display: inline">
+          <button type="submit" onclick="return confirm('确定要删除文件吗？');">删除文件</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
