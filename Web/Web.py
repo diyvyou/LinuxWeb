@@ -49,7 +49,6 @@ def download_file(filename):
 #删除功能
 @app.route('/delete/<path:filename>',methods=['POST'])
 def delete_file(filename):
-    # 删除 E:\Project\Code\Web 目录下的文件
     os.remove('/opt/Web/File/' + filename)
 
     Time = time.asctime( time.localtime(time.time()) )
@@ -60,5 +59,7 @@ def delete_file(filename):
     return redirect(url_for('list_files'))
 
 
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5000)
+

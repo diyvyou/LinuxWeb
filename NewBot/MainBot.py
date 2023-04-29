@@ -4,6 +4,9 @@ import requests
 from flask import request, Flask,render_template
 import re
 import plugins
+import time
+import datetime
+import threading
 
 with open("config.json", "r", encoding='utf-8') as jsonfile:
     config_data = json.load(jsonfile)
@@ -11,6 +14,30 @@ with open("config.json", "r", encoding='utf-8') as jsonfile:
     qq_no = qq_config['qq_no']
     cqhttp_url = qq_config['cqhttp_url']
 server = Flask(__name__)
+
+#报时函数
+def timeok():
+    now = datetime.datetime.now()
+    hour = now.hour
+    if hour == 0:
+        hour_str = "零点"
+    elif hour <= 12:
+        hour_str = f"{hour}点"
+    else:
+        hour_str = f"{hour-12}点"
+    message = f"自动报时：{hour_str}啦！"
+    SendMsg(message)
+
+
+def run_loop():
+    while True:
+        now = datetime.datetime.now()
+        if now.minute == 0 and now.second == 0:
+            timeok()
+        time.sleep(10)
+
+loop_thread = threading.Thread(target=run_loop)
+loop_thread.start()
 
 
 
@@ -71,5 +98,6 @@ def SendPic(getapi):
         print("消息发送成功")
     else:
         print("消息发送失败，错误信息：" + str(res['wording']))
+
 if __name__ == '__main__':
     server.run(port=7777, host='0.0.0.0', use_reloader=False)
