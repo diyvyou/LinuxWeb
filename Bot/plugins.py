@@ -23,12 +23,16 @@ def Remory(QQNum):
 
 #查询召唤次数
 def QueryPicNum(QQNum):
-    try:
-        Num = PicNum[QQNum]
-        NumStr = "{}的召唤次数为{}次".format(QQNum,Num)
-    except:
-        NumStr = "{}的召唤次数为0次".format(QQNum)
-    return NumStr
+    if QQNum == 0000:
+        NumStr = str(PicNum)
+        return NumStr
+    else:
+        try:
+            Num = PicNum[QQNum]
+            NumStr = "{}的召唤次数为{}次".format(QQNum,Num)
+        except:
+            NumStr = "{}的召唤次数为0次".format(QQNum)
+        return NumStr
 
 #聊天记录记载
 def MessageRemory(gid,uid,message):
