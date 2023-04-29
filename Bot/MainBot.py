@@ -43,7 +43,11 @@ def get_message():
             plugins.Remory(uid)
 
         elif message == '查询召唤数量':
-            NumStr = plugins.QueryPicNum()
+            NumStr = plugins.QueryPicNum(uid)
+            SendMessage(NumStr)
+
+        elif message == '查询全部召唤数量':
+            NumStr = plugins.QueryPicNum(0000)
             SendMessage(NumStr)
         
         elif message == '查询最近信息' :
