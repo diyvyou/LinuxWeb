@@ -14,7 +14,7 @@ def NicePic():
     m = requests.get(apiurl).json()
     n = json.dumps(m) 
     getapi = re.search(r'"original": "(.*?)"', n).group(1) #getapi
-    tags = m['data'][0]['tags']
+    tags = str(m['data'][0]['tags'])
     return tags,getapi
 
 #召唤计数器
@@ -39,6 +39,7 @@ def MessageRemory(gid,uid,message):
     if gid not in Remessages:
         Remessages[gid] = []
     Remessages[gid].append((uid, message))
+    Remessages[gid] = Remessages[gid][-10:]
 
 #聊天记录查询
 def DeWithDraw(gid):
@@ -52,3 +53,12 @@ def DeWithDraw(gid):
     else:
         DeWithDrawLog = (f"No messages found for gid {gid}")
         return DeWithDrawLog
+    
+#来份涩图
+def Picture():
+    apiurl = 'https://api.lolicon.app/setu/v2'
+    m = requests.get(apiurl).json()
+    n = json.dumps(m) 
+    getapi = re.search(r'"original": "(.*?)"', n).group(1)
+    return getapi
+
